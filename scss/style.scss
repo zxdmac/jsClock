@@ -1,0 +1,87 @@
+$containerW : 270px;
+$circleW : 11px;
+$clockTop: 45%;
+body {
+    background-color: #aba8b6;
+    font-family: 'Raleway', sans-serif;
+    font-size: 10px;
+    .clock-container {
+        width: 270px;
+        height: 550px;
+        background-color: white;
+        border-radius: 40px;
+        margin: 0 auto;
+        position: relative;
+        margin-top: 15vh;
+        -webkit-box-shadow: 15px 15px 20px 0px rgba(83,84,100,0.3);
+        -moz-box-shadow: 15px 15px 20px 0px rgba(83,84,100,0.3);
+        box-shadow: 15px 15px 20px 0px rgba(83,84,100,0.3);
+
+        .clock-face {
+            
+            & > * {
+                position: relative;
+                position: absolute;
+                top: $clockTop;
+                left: 50%;
+                background-color: black;
+                height: 2px;
+                transform: translateY(-50%) rotate(0deg);
+                transform-origin: left center;
+                transition: all 0.05s cubic-bezier(0, 0.72, 0.98, 1.81);
+
+                &:after {
+                    content: "";
+                    width: 2px;
+                    height: 2px;
+                    clip-path: polygon(0% 1%, 100% 40%, 100% 60%, 0 99%);
+                    position: absolute;
+                    background-color: black;
+                    left: 100%;
+                } 
+                &:last-child:after {
+                    width: 0px;
+                    height: 0px;
+                }
+                
+            }
+            &__circle {
+                height: $circleW;
+                width: $circleW;
+                background-color: white;
+                border: 1.5px solid #ca2027;
+                box-sizing: border-box;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                top: $clockTop;
+            }
+            &__hours {
+                width: 60px;
+            }
+            &__minutes {
+                width: 100px;
+            }
+            &__seconds {
+                width: 100px;
+                background-color: #ca2027;
+                &:after {
+                    background-color: #ca2027;
+                }
+            }
+        }
+    }
+
+    .time {
+        padding-top: 150%;
+        h1, h3 {
+            text-align: center;
+            margin: 0;
+        }
+        h1 {
+            font-size: 4em;
+        }
+        h3 {
+            font-size: 1em;
+        }
+    }
+}

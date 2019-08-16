@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <script src="node_modules/moment/moment.js"></script>
+</head>
+<body>
+    <div class="clock-container">
+        <div class="clock-face">
+            <div class="clock-face__hours"></div>
+            <div class="clock-face__minutes"></div>
+            <div class="clock-face__seconds"></div>
+            <div class="clock-face__circle"></div>
+        </div>
+        <div class="time">
+            <div class="time__numbers"><h1>13:11</h1></div>
+            <div class="time__month-year"><h3>Tue, 13 Aug</h3></div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    let seconds, minutes, hours;
+
+    function currentTime() {
+        let now = new Date();
+
+        seconds = now.getSeconds();
+        minutes = now.getMinutes();
+        hours = now.getHours();
+
+        updateHandles();
+        updateTimeDOM();
+    }
+    
+    
+    function updateHandles() {
+        hours12 = hours % 12 || 12;
+        const secondsDOM = document.getElementsByClassName('clock-face__seconds')[0];
+        const minutesDOM = document.getElementsByClassName('clock-face__minutes')[0];
+        const hoursDOM = document.getElementsByClassName('clock-face__hours')[0];
+
+        let degOffset = 90;
+        let secondsDeg = (seconds / 60) * 360;
+        let minutesDeg = (minutes / 60) * 360;
+        let hoursDeg = (hours12 / 12) * 360;
+       
+        secondsDOM.style.transform = `translateY(-50%) rotate(${secondsDeg - degOffset}deg)`;
+        
+        minutesDOM.style.transform = `translateY(-50%) rotate(${minutesDeg - degOffset}deg)`;
+        
+        hoursDOM.style.transform = `translateY(-50%) rotate(${hoursDeg - degOffset}deg)`;
+
+        secondsDOM.style.transitionProperty = "all";
+        minutesDOM.style.transitionProperty = "all";
+        hoursDOM.style.transitionProperty = "all";
+
+        if(seconds == 0) secondsDOM.style.transitionProperty = "none";
+        if(minutes == 0) minutessDOM.style.transitionProperty = "none";
+        if(hours12 == 0) hoursDOM.style.transitionProperty = "none";
+    }
+
+    function updateTimeDOM() {
+
+        let numberDOM = document.getElementsByClassName('time__numbers')[0];
+        let monthYearDOM = document.getElementsByClassName('time__month-year')[0];
+
+        if (minutes.toString().length == 1) minutes = `0${minutes}`;
+    
+        numberDOM.innerHTML = `<h1>${hours}:${minutes}</h1>`;
+
+        let dateString = moment().format('ddd[,] D MMM');      
+        monthYearDOM.innerHTML = `<h3>${dateString}</h3>`;
+    }
+
+    currentTime();
+    setInterval(currentTime, 500);
+
+</script>
+</html>
